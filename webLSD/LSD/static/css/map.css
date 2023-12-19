@@ -1,0 +1,227 @@
+body {
+  margin: 0;
+}
+
+#map {
+  width: 70%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+}
+
+.btn-primary, .btn-secondary {
+  position: relative;
+  z-index: 10;
+  top: 10px;
+  left: 89%;
+  float: left;
+
+}
+
+
+
+#full_screen{
+  padding: 6px 6px 6px 6px;
+}
+
+#full_screen img {
+  width: 30px; /* 이미지의 너비 */
+  height: 30px; /* 이미지의 높이 */
+}
+
+
+.parameter {
+  position: absolute;
+  width: 30%;
+  height: 40%;
+  right: 0;
+  background-color: rgba(20, 20, 20, 0.2);
+}
+
+#para {
+  margin: 20px 0 30px 0;
+  text-align: center;
+}
+
+#time,
+#spatial {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.form-group {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.b1 {
+  flex: 0.25;
+}
+
+.b2 {
+  flex: 0.125;
+}
+
+.b3 {
+  flex: 0.3;
+}
+
+.b4 {
+  flex: 0.125;
+}
+
+.b5 {
+  flex: 0.3;
+}
+
+.mt-4 {
+  margin-top: 0 !important;
+  font-size: 12pt;
+  vertical-align: center;
+  justify-content: flex-start !important;
+}
+
+#labelTW,
+#labelSW {
+  font-size: 14pt;
+}
+
+.form-control {
+  position: relative;
+  width: 100px !important;
+  justify-content: flex-start !important;
+}
+
+.btn-outline-dark {
+  width: 100px;
+}
+
+.tables {
+  position: absolute;
+  width: 30%;
+  height: 60%;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(20, 20, 20, 0.1);
+  table-layout: fixed; /* 고정된 테이블 레이아웃 */
+}
+
+.tables th, .tables td {
+  margin: 0;
+  text-align: center;
+}
+
+.col-width-15 {
+    width: 15%;
+}
+.col-width-30 {
+    width: 30%;
+}
+.col-width-27 {
+    width: 27.5%;
+}
+
+#lsdTableHead {
+  margin-bottom: 0;
+}
+
+.table-body-container {
+  overflow-y: auto;  /* 세로 스크롤 */
+  margin: 0;
+  padding: 0;
+  max-height: 320px;
+}
+
+#tables {
+  margin: 20px 0 20px 0;
+  text-align: center;
+}
+
+#csvDownload {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.highlighted {
+    background-color: yellow;
+}
+
+
+/* 범례를 오른쪽 아래에 배치하기 위한 스타일 */
+.legend {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.color-box {
+  display: inline-block;
+  width: 20px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+.wrapper {
+  position: relative;
+  z-index: 10;
+  top: 10px;
+  left: 88%;
+  float: left;
+}
+
+#switch {
+  position: absolute;
+  /* hidden */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.switch_label {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  width: 58px;
+  height: 28px;
+  background: #fff;
+  border: 2px solid #daa;
+  border-radius: 20px;
+  transition: 0.2s;
+}
+.switch_label:hover {
+  background: #efefef;
+}
+.onf_btn {
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  border-radius: 20px;
+  background: #daa;
+  transition: 0.2s;
+}
+
+/* checking style */
+#switch:checked+.switch_label {
+  background: #c44;
+  border: 2px solid #c44;
+}
+
+#switch:checked+.switch_label:hover {
+  background: gray;
+}
+
+/* move */
+#switch:checked+.switch_label .onf_btn {
+  left: 32px;
+  background: #fff;
+  box-shadow: 1px 2px 3px #00000020;
+}

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공간분석 연구실</title>
+</head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lumen/bootstrap.min.css" integrity="sha384-GzaBcW6yPIfhF+6VpKMjxbTx6tvR/yRd/yJub90CqoIn2Tz4rRXlSpTFYMKHCifX" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/map.css"/>
+
+    <!-- mapbox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
+
+    <!-- 자바스크립트 -->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
+    <script type="text/javascript" src="../static/js/map.js"></script>
+
+
+    <!-- jQuery 라이브러리 -->
+    <script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../static/js/chosen.jquery.min.js"></script>
+
+    <!-- 등분위수 계산 위한 라이브러리 -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+<body>
+
+    <!-- 맵을 감싸는 컨테이너 -->
+    <div id="map">
+<!--        <button type="button" class="btn btn-primary" id="sidoLayer">시도 경계</button>-->
+<!--        <button type="button" class="btn btn-primary" id="lsdLayer">현황</button>-->
+
+        <div class="wrapper">
+            <input type="checkbox" id="switch">
+            <label for="switch" class="switch_label">
+                <span class="onf_btn"></span>
+            </label>
+        </div>
+
+        <button type="button" class="btn btn-secondary" id="full_screen">
+            <img src="data:image/png;base64,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" alt="full_screen">
+        </button>
+
+    </div>
+
+    <div id="legend-container"></div>
+
+    <div class="parameter">
+        <h2 id="para"><strong>Parameters</strong></h2>
+
+        <div class="form-inline form-group">
+            <div class="b1"><h3 id="time"><strong>시간</strong></h3></div>
+            <div class="b2"><label for="inputDay" class="form-label mt-4" id="labelDay">Day:</label></div>
+            <div class="b3"><input type="text" class="form-control" id="inputDay" name="inputDay" placeholder="Enter days"></div>
+            <div class="b4"><label for="inputTW" class="form-label mt-4" id="labelTW">tw:</label></div>
+            <div class="b5"><input type="number" class="form-control" id="inputTW" name="inputTW" placeholder="Enter tw" step="0.01"></div>
+        </div>
+
+        <div class="form-inline form-group">
+            <div class="b1"><h3 id="spatial"><strong>공간</strong></h3></div>
+            <div class="b2"><label for="inputMeter" class="form-label mt-4" id="labelMeter">Meter:</label></div>
+            <div class="b3"><input type="text" class="form-control" id="inputMeter" name="inputMeter" placeholder="Enter meters"></div>
+            <div class="b4"><label for="inputSW" class="form-label mt-4" id="labelSW">sw:</label></div>
+            <div class="b5"><input type="number" class="form-control" id="inputSW" name="inputSW" placeholder="Enter sw" step="0.01"></div>
+        </div>
+
+        <div class="form-inline form-group">
+            <div class="b1"></div>
+            <div class="b2"></div>
+            <div class="b3"></div>
+            <div class="b4"></div>
+            <div class="b5"><button type="button" class="btn btn-outline-dark" id="lsdCal">실 행</button></div>
+        </div>
+    </div>
+
+
+    <div class="tables">
+        <a href="" id="csvDownload">CSV파일로 내보내기</a>
+
+        <h2 id="tables"><strong>Tables</strong></h2>
+
+        <table class="table table-hover" id="lsdTableHead">
+            <thead>
+                <tr>
+                    <th scope="col" class="col-width-15">차수</th>
+                    <th scope="col" class="col-width-30">확진일</th>
+                    <th scope="col" class="col-width-27">가중치 미적용</th>
+                    <th scope="col" class="col-width-27">가중치 적용</th>
+                </tr>
+            </thead>
+        </table>
+
+        <div class="table-body-container">
+            <table class="table table-hover" id="lsdTableBody">
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        mapboxgl.accessToken = '{{ mapbox_access_token }}';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mas7989/clequr0iw000o01ui9amu9rzf',
+            center: [127.90658820746921, 36.04013182387956],
+            zoom: 6.2,
+            minZoom: 4, // note the camel-case
+        });
+
+        $('#sidoLayer').click(function() {
+            sd_layer();
+        });
+
+        $('#lsdLayer').click(function() {
+            lsd_layer();
+        });
+
+        $('#lsdCal').click(function() {
+<!--            lsd_cal('CNT_BN', 'lsd-layer-bn'); // CNT_BN에 대한 레이어와 범례 표시-->
+            lsd_cal('CNT_ST', 'lsd-layer-st'); // CNT_ST에 대한 레이어와 범례 표시
+        });
+
+
+        // 테이블 행 클릭 이벤트 리스너
+        $('.table-body-container #lsdTableBody tbody').on('click', 'tr', function() {
+            var no = $(this).find('td:first').text();
+            var noAsNumber = parseInt(no, 10); // 문자열을 정수로 변환
+            var clickedFeature = findFeatureByProperty('차수', noAsNumber);
+
+            console.log(clickedFeature);
+
+            // 모든 행의 강조를 제거하고 현재 행만 강조
+            $('#lsdTableBody tbody tr').removeClass('highlighted');
+            $(this).addClass('highlighted');
+
+            if (clickedFeature) {
+                zoomToPoint(clickedFeature.geometry.coordinates);
+                highlightPointOnMap(clickedFeature);
+            }
+        });
+
+        $('#full_screen').click(function() {
+            map.flyTo({
+                center: [127.90658820746921, 36.04013182387956],
+                zoom: 6.2,
+            });
+        });
+
+        //다운로드 하이퍼링크에 클릭 이벤트 발생시 saveCSV 함수를 호출하도록 이벤트 리스너를 추가
+        document.addEventListener('DOMContentLoaded', function(){
+          document.getElementById('csvDownload').addEventListener('click', function(){
+            saveCSV('분석결과'); // CSV파일 다운로드 함수 호출
+
+            return false;
+          })
+        });
+
+
+<!--        // 스위치 상태 변경에 따라 레이어와 범례 표시 업데이트-->
+<!--        document.getElementById('switch').addEventListener('change', updateVisibleLayer);-->
+
+
+    </script>
+
+</body>
+</html>
